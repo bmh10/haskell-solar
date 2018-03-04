@@ -5,7 +5,6 @@ import qualified Graphics.Gloss.Game as GG
 import Graphics.Gloss.Data.ViewPort
 import Graphics.Gloss.Interface.Pure.Game as G2
 import System.IO  
-import System.Random 
 import Control.Monad
 import Data.Fixed
 import Data.List
@@ -16,12 +15,6 @@ width = 800
 height = 500 + dashboardHeight -- 31 * 15
 dashboardHeight = 20
 offset = 100
-extraParticlesPerFrame = 100
-numInitialParticles = 10000
-
-particleRadius = 1
-initialGravity = -2
-xVelRange = 5
 
 window = InWindow "Solar" (width, height) (offset, offset)
 background = black
@@ -29,8 +22,7 @@ background = black
 data LifeGame = Game
   { 
     objects :: [Object],
-    paused :: Bool,
-    gen :: StdGen
+    paused :: Bool
   } deriving Show 
 
 data Object = Object
@@ -79,8 +71,7 @@ initialObstacles = [obs (0, 0)]
 obs p = Object { pos = p, vel = (0, 0), mass = 1, radius = 50, col = yellow }
 
 initGame = do 
-  stdGen <- newStdGen
-  let initialState = Game { paused = False, objects = initialObstacles, gen = stdGen }
+  let initialState = Game { paused = False, objects = initialObstacles }
   return initialState
 
 main = do
