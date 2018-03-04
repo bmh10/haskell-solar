@@ -29,6 +29,7 @@ data LifeGame = Game
 
 data Object = Object
   {
+    name :: String,
     objType :: Type,
     pos :: (Int, Int),
     vel :: (Int, Int),
@@ -70,7 +71,12 @@ update secs game
 updateGame g = g
 
 initialObjects = 
-  [Object { objType = Star, pos = (0, 0), vel = (0, 0), mass = 1, radius = 50, col = yellow }]
+  [obj "Sun"     Star   0   50 yellow,
+   obj "Mercury" Planet 80  10 yellow,
+   obj "Venus"   Planet 130 20 orange,
+   obj "Earth"   Planet 180 25 blue]
+
+  where obj n t x r c = Object { name = n, objType = t, pos = (x, 0), vel = (0, 0), mass = 1, radius = r, col = c }
 
 initGame = do 
   let initialState = Game { paused = False, objects = initialObjects }
