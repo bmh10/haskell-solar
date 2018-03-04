@@ -19,6 +19,8 @@ offset = 100
 window = InWindow "Solar" (width, height) (offset, offset)
 background = black
 
+data Type = Star | Planet | Moon deriving (Show)
+
 data LifeGame = Game
   { 
     objects :: [Object],
@@ -27,6 +29,7 @@ data LifeGame = Game
 
 data Object = Object
   {
+    objType :: Type,
     pos :: (Int, Int),
     vel :: (Int, Int),
     mass :: Int,
@@ -66,12 +69,11 @@ update secs game
 
 updateGame g = g
 
-initialObstacles = [obs (0, 0)]
-
-obs p = Object { pos = p, vel = (0, 0), mass = 1, radius = 50, col = yellow }
+initialObjects = 
+  [Object { objType = Star, pos = (0, 0), vel = (0, 0), mass = 1, radius = 50, col = yellow }]
 
 initGame = do 
-  let initialState = Game { paused = False, objects = initialObstacles }
+  let initialState = Game { paused = False, objects = initialObjects }
   return initialState
 
 main = do
