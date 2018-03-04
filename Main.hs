@@ -11,7 +11,7 @@ import Data.List
 import Data.Maybe
 
 fps = 20
-width = 800
+width = 1200
 height = 500 + dashboardHeight -- 31 * 15
 dashboardHeight = 20
 offset = 100
@@ -74,7 +74,13 @@ initialObjects =
   [obj "Sun"     Star   0   50 yellow,
    obj "Mercury" Planet 80  10 yellow,
    obj "Venus"   Planet 130 20 orange,
-   obj "Earth"   Planet 180 25 blue]
+   obj "Earth"   Planet 180 25 blue,
+   obj "Mars"    Planet 220 20 red,
+   obj "Jupiter" Planet 300 40 orange,
+   obj "Saturn"  Planet 360 40 blue,
+   obj "Uranus"  Planet 400 30 (light blue),
+   obj "Neptune" Planet 430 25 blue,
+   obj "Pluto"   Planet 470 10 blue]
 
   where obj n t x r c = Object { name = n, objType = t, pos = (x, 0), vel = (0, 0), mass = 1, radius = r, col = c }
 
