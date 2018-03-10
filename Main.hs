@@ -51,8 +51,8 @@ renderObject :: Object -> Picture
 renderObject p
  = translate x y $ G2.color (col p) $ circleSolid radius
   where
-    (x, y) = ((distFromSun p)*20, 0)
-    radius = (diameter p) / 2
+    (x, y) = ((distFromSun p)*30 - 500, 0)
+    radius = 4
    
 
 -- Event handling
@@ -70,7 +70,7 @@ update secs game
 updateGame g = g
 
 initialObjects = 
-  [obj "Sun"     Star   0    1391400 yellow,
+  [obj "Sun"     Star   0    10000 yellow,
    obj "Mercury" Planet 0.39 4878 yellow,
    obj "Venus"   Planet 0.723 12104 orange,
    obj "Earth"   Planet 1 12756 blue,
@@ -81,7 +81,7 @@ initialObjects =
    obj "Neptune" Planet 30.06 48600 blue,
    obj "Pluto"   Planet 39.53 2274 blue]
 
-  where obj n t dist d c = Object { name = n, objType = t, mass = 1, distFromSun = dist, diameter = 5, col = c }
+  where obj n t dist d c = Object { name = n, objType = t, mass = 1, distFromSun = dist, diameter = d, col = c }
 
 initGame = do 
   let initialState = Game { paused = False, objects = initialObjects }
