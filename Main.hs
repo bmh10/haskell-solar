@@ -31,10 +31,9 @@ data Object = Object
   {
     name :: String,
     objType :: Type,
-    pos :: (Int, Int),
-    vel :: (Int, Int),
     mass :: Int,
-    radius :: Float,
+    diameter :: Float,
+    distFromSun :: Float,
     col :: G2.Color
   } deriving Show
 
@@ -50,10 +49,10 @@ renderObjects g = pictures $ map renderObject (objects g)
 
 renderObject :: Object -> Picture
 renderObject p
- = translate x' y' $ G2.color (col p) $ circleSolid (radius p)
+ = translate x y $ G2.color (col p) $ circleSolid radius
   where
-    (x, y) = pos p
-    (x', y') = (fromIntegral x, fromIntegral y)
+    (x, y) = ((distFromSun p)/5000000, 0)
+    radius = (diameter p) / 2
    
 
 -- Event handling
@@ -71,18 +70,18 @@ update secs game
 updateGame g = g
 
 initialObjects = 
-  [obj "Sun"     Star   0   50 yellow,
-   obj "Mercury" Planet 80  10 yellow,
-   obj "Venus"   Planet 130 20 orange,
-   obj "Earth"   Planet 180 25 blue,
-   obj "Mars"    Planet 230 20 red,
-   obj "Jupiter" Planet 300 40 orange,
-   obj "Saturn"  Planet 390 40 blue,
-   obj "Uranus"  Planet 470 30 (light blue),
-   obj "Neptune" Planet 530 25 blue,
-   obj "Pluto"   Planet 580 10 blue]
+  [obj "Sun"     Star   0        50 yellow,
+   obj "Mercury" Planet 35900000 10 yellow,
+   obj "Venus"   Planet 108200000 20 orange,
+   obj "Earth"   Planet 149600000 25 blue,
+   obj "Mars"    Planet 227900000 20 red,
+   obj "Jupiter" Planet 778300000 40 orange,
+   obj "Saturn"  Planet 1427000000 40 blue,
+   obj "Uranus"  Planet 2871000000 30 (light blue),
+   obj "Neptune" Planet 4497100000 25 blue,
+   obj "Pluto"   Planet 5913000000 10 blue]
 
-  where obj n t x r c = Object { name = n, objType = t, pos = (x, 0), vel = (0, 0), mass = 1, radius = r, col = c }
+  where obj n t dist d c = Object { name = n, objType = t, mass = 1, distFromSun = dist, diameter = 5, col = c }
 
 initGame = do 
   let initialState = Game { paused = False, objects = initialObjects }
