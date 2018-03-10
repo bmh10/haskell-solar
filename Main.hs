@@ -11,7 +11,7 @@ import Data.List
 import Data.Maybe
 
 fps = 20
-width = 1200
+width = 1400
 height = 500 + dashboardHeight -- 31 * 15
 dashboardHeight = 20
 offset = 100
@@ -51,7 +51,7 @@ renderObject :: Object -> Picture
 renderObject p
  = translate x y $ G2.color (col p) $ circleSolid radius
   where
-    (x, y) = ((distFromSun p)/5000000, 0)
+    (x, y) = ((distFromSun p)*20, 0)
     radius = (diameter p) / 2
    
 
@@ -71,15 +71,15 @@ updateGame g = g
 
 initialObjects = 
   [obj "Sun"     Star   0        50 yellow,
-   obj "Mercury" Planet 35900000 10 yellow,
-   obj "Venus"   Planet 108200000 20 orange,
-   obj "Earth"   Planet 149600000 25 blue,
-   obj "Mars"    Planet 227900000 20 red,
-   obj "Jupiter" Planet 778300000 40 orange,
-   obj "Saturn"  Planet 1427000000 40 blue,
-   obj "Uranus"  Planet 2871000000 30 (light blue),
-   obj "Neptune" Planet 4497100000 25 blue,
-   obj "Pluto"   Planet 5913000000 10 blue]
+   obj "Mercury" Planet 0.39 10 yellow,
+   obj "Venus"   Planet 0.723 20 orange,
+   obj "Earth"   Planet 1 25 blue,
+   obj "Mars"    Planet 1.524 20 red,
+   obj "Jupiter" Planet 5.203 40 orange,
+   obj "Saturn"  Planet 9.539 40 blue,
+   obj "Uranus"  Planet 19.18 30 (light blue),
+   obj "Neptune" Planet 30.06 25 blue,
+   obj "Pluto"   Planet 39.53 10 blue]
 
   where obj n t dist d c = Object { name = n, objType = t, mass = 1, distFromSun = dist, diameter = 5, col = c }
 
