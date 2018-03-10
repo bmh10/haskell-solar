@@ -70,16 +70,16 @@ update secs game
 updateGame g = g
 
 initialObjects = 
-  [obj "Sun"     Star   0        50 yellow,
-   obj "Mercury" Planet 0.39 10 yellow,
-   obj "Venus"   Planet 0.723 20 orange,
-   obj "Earth"   Planet 1 25 blue,
-   obj "Mars"    Planet 1.524 20 red,
-   obj "Jupiter" Planet 5.203 40 orange,
-   obj "Saturn"  Planet 9.539 40 blue,
-   obj "Uranus"  Planet 19.18 30 (light blue),
-   obj "Neptune" Planet 30.06 25 blue,
-   obj "Pluto"   Planet 39.53 10 blue]
+  [obj "Sun"     Star   0    1391400 yellow,
+   obj "Mercury" Planet 0.39 4878 yellow,
+   obj "Venus"   Planet 0.723 12104 orange,
+   obj "Earth"   Planet 1 12756 blue,
+   obj "Mars"    Planet 1.524 6787 red,
+   obj "Jupiter" Planet 5.203 142796 orange,
+   obj "Saturn"  Planet 9.539 120660 blue,
+   obj "Uranus"  Planet 19.18 51118 (light blue),
+   obj "Neptune" Planet 30.06 48600 blue,
+   obj "Pluto"   Planet 39.53 2274 blue]
 
   where obj n t dist d c = Object { name = n, objType = t, mass = 1, distFromSun = dist, diameter = 5, col = c }
 
