@@ -36,6 +36,8 @@ data Object = Object
     distFromSun :: Float,
     temperature :: Float,
     numMoons :: Int,
+    orbitTime :: Float,
+    rotationTime :: Float,
     col :: G2.Color
   } deriving Show
 
@@ -83,7 +85,7 @@ initialObjects =
    obj "Neptune" Planet 30.06 48600  48   13 blue,
    obj "Pluto"   Planet 39.53 2274   37   4 blue]
 
-  where obj n t dist d tmp nm c = Object { name = n, objType = t, mass = 1, distFromSun = dist, diameter = d, temperature = tmp, numMoons = nm, col = c }
+  where obj n t dist d tmp nm c = Object { name = n, objType = t, mass = 1, distFromSun = dist, diameter = d, temperature = tmp, numMoons = nm, orbitTime = 0, rotationTime = 0, col = c }
 
 initGame = do 
   let initialState = Game { paused = False, objects = initialObjects }
