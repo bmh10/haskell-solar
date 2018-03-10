@@ -75,12 +75,12 @@ initialObjects =
    obj "Mercury" Planet 80  10 yellow,
    obj "Venus"   Planet 130 20 orange,
    obj "Earth"   Planet 180 25 blue,
-   obj "Mars"    Planet 220 20 red,
+   obj "Mars"    Planet 230 20 red,
    obj "Jupiter" Planet 300 40 orange,
-   obj "Saturn"  Planet 360 40 blue,
-   obj "Uranus"  Planet 400 30 (light blue),
-   obj "Neptune" Planet 430 25 blue,
-   obj "Pluto"   Planet 470 10 blue]
+   obj "Saturn"  Planet 390 40 blue,
+   obj "Uranus"  Planet 470 30 (light blue),
+   obj "Neptune" Planet 530 25 blue,
+   obj "Pluto"   Planet 580 10 blue]
 
   where obj n t x r c = Object { name = n, objType = t, pos = (x, 0), vel = (0, 0), mass = 1, radius = r, col = c }
 
