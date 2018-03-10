@@ -34,6 +34,7 @@ data Object = Object
     mass :: Int,
     diameter :: Float,
     distFromSun :: Float,
+    temperature :: Float,
     col :: G2.Color
   } deriving Show
 
@@ -70,18 +71,18 @@ update secs game
 updateGame g = g
 
 initialObjects = 
-  [obj "Sun"     Star   0    10000 yellow,
-   obj "Mercury" Planet 0.39 4878 yellow,
-   obj "Venus"   Planet 0.723 12104 orange,
-   obj "Earth"   Planet 1 12756 blue,
-   obj "Mars"    Planet 1.524 6787 red,
-   obj "Jupiter" Planet 5.203 142796 orange,
-   obj "Saturn"  Planet 9.539 120660 blue,
-   obj "Uranus"  Planet 19.18 51118 (light blue),
-   obj "Neptune" Planet 30.06 48600 blue,
-   obj "Pluto"   Planet 39.53 2274 blue]
+  [obj "Sun"     Star   0     10000  5778 yellow,
+   obj "Mercury" Planet 0.39  4878   452  yellow,
+   obj "Venus"   Planet 0.723 12104  726  orange,
+   obj "Earth"   Planet 1     12756  280  blue,
+   obj "Mars"    Planet 1.524 6787   250  red,
+   obj "Jupiter" Planet 5.203 142796 120  orange,
+   obj "Saturn"  Planet 9.539 120660 88   blue,
+   obj "Uranus"  Planet 19.18 51118  59   (light blue),
+   obj "Neptune" Planet 30.06 48600  48   blue,
+   obj "Pluto"   Planet 39.53 2274   37   blue]
 
-  where obj n t dist d c = Object { name = n, objType = t, mass = 1, distFromSun = dist, diameter = d, col = c }
+  where obj n t dist d tmp c = Object { name = n, objType = t, mass = 1, distFromSun = dist, diameter = d, temperature = tmp, col = c }
 
 initGame = do 
   let initialState = Game { paused = False, objects = initialObjects }
