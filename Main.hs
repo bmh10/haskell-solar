@@ -30,6 +30,7 @@ data LifeGame = Game
 data Object = Object
   {
     name :: String,
+    pos :: (Float, Float),
     objType :: Type,
     mass :: Int,
     diameter :: Float,
@@ -55,7 +56,7 @@ renderObject :: Object -> Picture
 renderObject p
  = translate x y $ G2.color (col p) $ circleSolid radius
   where
-    (x, y) = ((distFromSun p)*30 - 500, 0)
+    (x, y) = (pos p)
     radius = 4
    
 
@@ -69,9 +70,12 @@ togglePaused g = g { paused   = not (paused g) }
 update :: Float -> LifeGame -> LifeGame
 update secs game
  | (paused game) = game
- | otherwise     = updateGame game
+ | otherwise     = updateGame game secs
 
-updateGame g = g
+updateGame g t = g { objects = map updatePosition (objects g) }
+
+updatePosition o = o { pos = calcPosition o }
+calcPosition o = ((distFromSun o)*30 - 500, 0)
 
 initialObjects = 
   [obj "Sun"     Star   0     1391400 5778 0  0 0 yellow,
@@ -85,7 +89,7 @@ initialObjects =
    obj "Neptune" Planet 30.06 48600   48   13 60198.500 0.7958 blue,
    obj "Pluto"   Planet 39.53 2274    37   4  90474.902 6.39 blue]
 
-  where obj n t dist d tmp nm ot rt c = Object { name = n, objType = t, mass = 1, distFromSun = dist, diameter = d, temperature = tmp, numMoons = nm, orbitTime = ot, rotationTime = rt, col = c }
+  where obj n t dist d tmp nm ot rt c = Object { name = n, objType = t, mass = 1, distFromSun = dist, diameter = d, temperature = tmp, numMoons = nm, orbitTime = ot, rotationTime = rt, col = c, pos = (0,0) }
 
 initGame = do 
   let initialState = Game { paused = False, objects = initialObjects }
