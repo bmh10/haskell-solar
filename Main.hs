@@ -24,7 +24,8 @@ data Type = Star | Planet | Moon deriving (Show)
 data LifeGame = Game
   { 
     objects :: [Object],
-    paused :: Bool
+    paused :: Bool,
+    time :: Float
   } deriving Show 
 
 data Object = Object
@@ -48,7 +49,7 @@ render g = pictures [renderObjects g,
                      renderDashboard g]
 
 renderDashboard :: LifeGame -> Picture
-renderDashboard g = G2.color white $ translate (-300) (-fromIntegral height/2 + 5) $ scale 0.1 0.1 $ text $ "Dashboard"
+renderDashboard g = G2.color white $ translate (-300) (-fromIntegral height/2 + 5) $ scale 0.1 0.1 $ text $ "Dashboard: Time = " ++ show (time g)
 
 renderObjects g = pictures $ map renderObject (objects g)
 
@@ -70,12 +71,12 @@ togglePaused g = g { paused   = not (paused g) }
 update :: Float -> LifeGame -> LifeGame
 update secs game
  | (paused game) = game
- | otherwise     = updateGame game secs
+ | otherwise     = updateGame game
 
-updateGame g t = g { objects = map updatePosition (objects g) }
+updateGame g = g { time = (time g) + 1, objects = map (updatePosition (time g)) (objects g) }
 
-updatePosition o = o { pos = calcPosition o }
-calcPosition o = ((distFromSun o)*30 - 500, 0)
+updatePosition t o = o { pos = calcPosition t o }
+calcPosition t o = ((distFromSun o)*30 - 500, t)
 
 initialObjects = 
   [obj "Sun"     Star   0     1391400 5778 0  0 0 yellow,
@@ -92,7 +93,7 @@ initialObjects =
   where obj n t dist d tmp nm ot rt c = Object { name = n, objType = t, mass = 1, distFromSun = dist, diameter = d, temperature = tmp, numMoons = nm, orbitTime = ot, rotationTime = rt, col = c, pos = (0,0) }
 
 initGame = do 
-  let initialState = Game { paused = False, objects = initialObjects }
+  let initialState = Game { paused = False, time = 0, objects = initialObjects }
   return initialState
 
 main = do
